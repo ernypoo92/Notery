@@ -5,20 +5,26 @@ console.log(notes);
 
 
 router.get('/api/notes', (req, res) => {
-    let notes = JSON.parse(fs.readFileSync('../../db/db.json', 'UTF-8'));
+    // let notes = JSON.parse(fs.readFileSync('../../db/db.json', 'UTF-8'));
     // note.then((notes)=>{
     //     return res.json(note);
     // })   
-    if(notes.length >= 0) {
-        return res.json(notes);
-    } else {
-        return;
-    }
+    // if(notes.length > 0) {
+    //     return res.json(notes);
+    // } else {
+    //     return;
+    // }
     
-    // const { notes } = JSON.parse(fs.readFileSync(
-    //     path.join(__dirname, '../../db/db.json')))
+    const { notes } = JSON.parse(fs.readFileSync(path.join(__dirname, '../../db/db.json')))
 
-    //     req.body.id = notes.length.toString();.
+    req.body.id = notes.length.toString();
+    
+    if (!validateNote(req.body)) {
+        res.status(400).send('The note is not properly formatted.');
+    } else {
+    const note = createNote(req.body, notes);
+    res.json(note);
+    }
     // console.log(notes);
     // return res.json(notes);
 });
