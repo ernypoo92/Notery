@@ -1,7 +1,7 @@
 {
   "name": "notery",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Description This application can be used to take notes, save them, view them and then delete them when no longer needed.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/ernypoo92/notery#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.18.1"
   }
 }
