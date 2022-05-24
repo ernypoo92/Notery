@@ -1,11 +1,31 @@
 const router = require('express').Router();
 const fs = require('fs');
-let notes  = require('../../db/db.json');
-console.log(notes);
+//let notes  = require('./db.json');
+console.log(__dirname);
 
 
-router.get('/api/notes', (req, res) => {
-    // let notes = JSON.parse(fs.readFileSync('../../db/db.json', 'UTF-8'));
+router.get('/notes', (req, res) => {
+    fs.readFile('./routes/apiRoutes/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            // Convert string into JSON object
+            const parsedNotes = JSON.parse(data);
+            return res.json(parsedNotes)
+
+        // // Write updated reviews back to the file
+        // fs.writeFile(
+        //     './db.json',
+        //     JSON.stringify(parsedNotes, null, 4),
+        //     (writeErr) =>
+        //         writeErr
+        //         ? console.error(writeErr)
+        //         : console.info('Successfully updated reviews!')
+        // );
+    }
+    });
+    
+    // notes = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
     // note.then((notes)=>{
     //     return res.json(note);
     // })   
@@ -15,37 +35,58 @@ router.get('/api/notes', (req, res) => {
     //     return;
     // }
     
-    const { notes } = JSON.parse(fs.readFileSync(path.join(__dirname, '../../db/db.json')))
+    // const { notes } = JSON.parse(fs.readFileSync(path.join(__dirname, '../../db/db.json')))
 
-    req.body.id = notes.length.toString();
+    // req.body.id = notes.length.toString();
     
-    if (!validateNote(req.body)) {
-        res.status(400).send('The note is not properly formatted.');
-    } else {
-    const note = createNote(req.body, notes);
-    res.json(note);
-    }
+    // if (!validateNote(req.body)) {
+    //     res.status(400).send('The note is not properly formatted.');
+    // } else {
+    // const note = createNote(req.body, notes);
+    // res.json(note);
+    // }
     // console.log(notes);
     // return res.json(notes);
 });
 
 
-router.post('/api/notes', (req, res) => {
+router.post('/notes', (req, res) => {
     let noteMod = {
         title: req.body.title,
         text: req.body.text,
         id: Math.floor(Math.random() * 100000)
     };
 
-    notes.push(noteMod);
+    fs.readFile('./routes/apiRoutes/db.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            // Convert string into JSON object
+            const parsedNotes = JSON.parse(data);
 
-    fs.writeFileSync('../../db/db.json', JSON.stringify(notes));
+             // Add a new Note
+            parsedNotes.push(noteMod);
+            
+            // Write updated Notes back to the file
+            fs.writeFile(
+                './routes/apiRoutes/db.json',
+                JSON.stringify(parsedNotes, null, 4),
+                (writeErr) =>
+                writeErr
+                    ? console.error(writeErr)
+                    : console.info('Successfully updated Notes!')
+            );
+        }
+    });
+    // notes.push(noteMod);
 
-    res.json(notes);
+    // fs.writeFileSync('./routes/apiRoutes/db.json/db.json', JSON.stringify(notes));
+
+    // res.json(notes);
 });
 
 
-router.delete('/api/notes/:id', (req, res) => {
+router.delete('/notes/:id', (req, res) => {
     let keeperNotes = [];
 
     for(var i = 0; i < notes.length; i++) {
