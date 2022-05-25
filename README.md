@@ -3,8 +3,20 @@
 ## Description
 This application can be used to take notes, save them, view them and then delete them when no longer needed.
 
-## Technologies
-JavaScript,Node.js,Express.js
+##Built With
+Node.js
+Inquirer NPM
+JavaScript
+Express
+HTML
+CSS
 
-##To whom it may concern
-the routes for this applicaton will not work for some reason. I cannot figure out the problem but it you have a solution please reach out to me at ernypoo92@GMAIL.COM
+GitHub Link
+ https://github.com/ernypoo92/Notery
+ 
+Deployed Application Link
+ https://guarded-ridge-34992.herokuapp.com/
+ 
+Contribution
+Made by Aaron Jones
+
